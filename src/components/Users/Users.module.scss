@@ -1,0 +1,99 @@
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.usersWindow {
+    margin-top: 10%;
+    padding: 20px;
+    border: solid 1px black;
+    position: relative;
+}
+
+.tableUsersContainer {
+    & > :first-child {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        padding: 10px 0 10px 0;
+        border-bottom: solid 2px rgb(0, 0, 0);
+        transition: transform .5s;
+    }
+
+    button {
+        width: 15px;
+        height: 15px;
+        background-image: url("../../img/sort.png");
+        background-color: unset;
+        background-size: 100%;
+        border: unset;
+        background-repeat: no-repeat;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+        }
+    }
+}
+
+.tableItemWrapper {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.46);
+    padding: 15px 0 15px 0;
+
+    button {
+        width: 25px;
+        height: 25px;
+        background-color: unset;
+        background-size: 100%;
+        border: unset;
+        background-repeat: no-repeat;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
+
+    div {
+        padding-left: 5px;
+    }
+}
+
+.buttonDownloadImg {
+    transition: transform .5s;
+
+    button {
+        background-image: url("../../img/download.png");
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
+
+.buttonWrapperForm {
+    display: flex;
+    justify-content: space-evenly;
+    margin-left: 30px;
+    transition: transform .5s;
+
+    & > :first-child {
+        background-image: url("../../img/editUser.png");
+
+    }
+
+    & > :last-child {
+        background-image: url("../../img/deleteUser.png");
+    }
+}
+
+.footerButtonWrapper {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+

@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    align-items: center;
+    border: solid 1px black;
+
+    span {
+        padding: 6px;
+        border-right: 1px solid black;
+        font-weight: 600;
+        margin-right: 5px;
+    }
+
+    button {
+        height: 100%;
+        background: unset;
+        border: unset;
+        img{
+            width: 15px;
+            height: 10px;
+            transition: transform .2s;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+.buttonSortWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.itemPage{
+button{
+    border: solid 1px black;
+}
+}
