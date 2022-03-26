@@ -1,0 +1,9 @@
+.editUserFormContainer{
+    input{
+        max-width: 120px;
+        &:focus{
+            outline: none;
+        }
+    }
+
+}

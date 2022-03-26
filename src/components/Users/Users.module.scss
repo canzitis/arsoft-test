@@ -1,12 +1,10 @@
 .container {
-    max-width: 1000px;
+    /*max-width: 1000px;*/
     margin: 0 auto;
 }
 
 .usersWindow {
     margin-top: 10%;
-    padding: 20px;
-    border: solid 1px black;
     position: relative;
 }
 
@@ -18,21 +16,6 @@
         padding: 10px 0 10px 0;
         border-bottom: solid 2px rgb(0, 0, 0);
         transition: transform .5s;
-    }
-
-    button {
-        width: 15px;
-        height: 15px;
-        background-image: url("../../img/sort.png");
-        background-color: unset;
-        background-size: 100%;
-        border: unset;
-        background-repeat: no-repeat;
-
-        &:hover {
-            cursor: pointer;
-            transform: scale(1.1);
-        }
     }
 }
 
@@ -75,6 +58,8 @@
 }
 
 .buttonWrapperForm {
+    position: absolute;
+    right: 0;
     display: flex;
     justify-content: space-evenly;
     margin-left: 30px;
@@ -82,11 +67,30 @@
 
     & > :first-child {
         background-image: url("../../img/editUser.png");
-
+        margin-right: 10px;
     }
 
     & > :last-child {
         background-image: url("../../img/deleteUser.png");
+    }
+}
+
+.updateUserButton {
+    position: absolute;
+    right: 0;
+    width: 100px;
+    height: 30px;
+    padding: 5px;
+    background: blue;
+    color: white;
+
+    input {
+        transition: transform .5s;
+    }
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
     }
 }
 

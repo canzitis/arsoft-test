@@ -1,5 +1,10 @@
 import axios from "axios";
 
+/*const initial = {
+    headers: {
+        "Authorization": "Basic YWRtaW46YWRtaW4="
+    }
+}*/
 
 const api = {
     getUsers() {
@@ -16,7 +21,6 @@ const api = {
             })
     },
 }
-
 export default api;
 
 

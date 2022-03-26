@@ -1,9 +1,16 @@
-.container{
+.container {
     text-align: right;
-    button{
+    transition: transform .2s;
+
+    button {
         font-weight: bold;
         color: white;
         padding: 10px;
         background: blue;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
     }
 }

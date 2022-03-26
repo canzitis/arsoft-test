@@ -1,0 +1,15 @@
+
+.sortButton {
+    width: 15px;
+    height: 15px;
+    background-image: url("../../img/sort.png");
+    background-color: unset;
+    background-size: 100%;
+    border: unset;
+    background-repeat: no-repeat;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}

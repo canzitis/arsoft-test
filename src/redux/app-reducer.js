@@ -2,6 +2,7 @@ import api from '../api/api'
 
 const SET_USERS = "SET_USERS"
 const SET_INITIALIZE = "SET_INITIALIZE"
+const SORT_DATA = "SORT_DATA"
 
 let initialState = {
     users: null,
@@ -20,6 +21,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 initialize: action.initialize
+            }
+        case SORT_DATA:
+            return {
+                ...state,
+                users: [...action.data]
             }
         default:
             return state;
@@ -43,12 +49,28 @@ const setInitialize = (initialize) => {
     }
 }
 
+export const sortData = (data) => {
+    return {
+        type: SORT_DATA,
+        data
+    }
+}
+
 export const getUsers = () => {
     return async (dispatch) => {
         dispatch(setInitialize(false))
         const data = await api.getUsers()
         if (data.status === 200) {
             dispatch(setUsers(data.data))
+        }
+    }
+}
+
+export const editUsers = () => {
+    return async (dispatch) => {
+        const data = await api.getUsers()
+        if (data.status === 200) {
+
         }
     }
 }
