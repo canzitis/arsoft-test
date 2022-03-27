@@ -43,6 +43,12 @@
         padding-left: 5px;
     }
 }
+.count{
+    position: absolute;
+    left: 0;
+    margin-right: 10px;
+}
+
 
 .buttonDownloadImg {
     transition: transform .5s;
@@ -99,5 +105,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    button {
+        padding: 10px;
+        background: blue;
+        color: white;
+        transition: transform .5s;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
 }
 

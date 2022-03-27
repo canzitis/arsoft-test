@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Users.module.scss'
 import Pagination from "../Pagination/Pagination";
 import AddedUser from "../AddedUser/AddedUser";
@@ -7,17 +7,17 @@ import EditUserContainer from "../EditUser/EditUserContainer";
 import {useForm} from "react-hook-form";
 import EditUserForm from "../EditUser/EditUserForm/EditUserForm";
 import DeleteUserContainer from "../DeleteUser/DeleteUserContainer";
-import {editUsers} from "../../redux/app-reducer";
+import {editUser} from "../../redux/app-reducer";
+import {useDispatch} from "react-redux";
 
-const Users = ({users, setEditUser}) => {
+const Users = ({users,count}) => {
     const [deleteUser, setDeleteUser] = useState(false)
     const [idDeleteUser, setIdDeleteUser] = useState(null)
     const [idUserEdit, setIdUserEdit] = useState(null)
+    const [modeAddedUser, setModeAddedUser] = useState(false)
 
-    const setDeleteUserFC = (id) => {
-        setDeleteUser(true)
-        setIdDeleteUser(id)
-    }
+    const dispatch = useDispatch();
+
 
     const {
         register,
@@ -25,9 +25,9 @@ const Users = ({users, setEditUser}) => {
         formState: {errors},
     } = useForm();
 
-    const onSubmit = (data, idUserEdit) => {
-        console.log(data)
-        //editUsers(data,idUserEdit)
+    const onSubmit = (data) => {
+        console.log(1)
+        dispatch(editUser(data, idUserEdit))
         setIdUserEdit(null)
     };
 
@@ -55,6 +55,8 @@ const Users = ({users, setEditUser}) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {users.map((i) => {
                         return <div key={i.id} className={s.tableItemWrapper}>
+
+                            <div className={s.count}>{count}</div>
 
                             {i.id === idUserEdit ?
                                 <EditUserForm id={i.id} register={register} errors={errors} registerName='name'
@@ -90,19 +92,24 @@ const Users = ({users, setEditUser}) => {
                                 value='Обновить'
                             /> : <div className={s.buttonWrapperForm}>
                                 <EditUserContainer id={i.id} setIdUserEdit={setIdUserEdit}/>
-                                <button onClick={(() => {
-                                    setDeleteUserFC(i.id)
-                                })}/>
+                                <button
+                                    type="delete" onClick={() => {
+                                    console.log(2)
+                                }}/>
                             </div>}
                         </div>
                     })}
                 </form>
                 {deleteUser && <DeleteUserContainer setDeleteUser={setDeleteUser} deleteUser={deleteUser}/>}
+                {modeAddedUser && <AddedUser setModeAddedUser={setModeAddedUser} modeAddedUser={modeAddedUser}/>}
             </div>
 
             <div className={s.footerButtonWrapper}>
                 <Pagination/>
-                <AddedUser/>
+                <button onClick={() => {
+                    setModeAddedUser(true)
+                }}>Создать<br/> пользователя
+                </button>
             </div>
 
         </div>

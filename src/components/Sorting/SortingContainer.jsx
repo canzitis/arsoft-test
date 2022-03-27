@@ -17,9 +17,9 @@ const SortingContainer = ({id}) => {
             case "name": {
                 newUserData.sort((a, b) => {
                     if (a.user.name > b.user.name) {
-                        return a.user.name < b.user.name ? 1 : -1;
-                    } else {
                         return a.user.name > b.user.name ? 1 : -1;
+                    } else {
+                        return b.user.name > a.user.name ? 1 : -1;
                     }
                 })
                 return dispatch(sortData(newUserData))
@@ -27,9 +27,9 @@ const SortingContainer = ({id}) => {
             case "lastName": {
                 newUserData.sort((a, b) => {
                     if (a.user.lastName > b.user.lastName) {
-                        return a.user.lastName < b.user.lastName ? 1 : -1;
-                    } else {
                         return a.user.lastName > b.user.lastName ? 1 : -1;
+                    } else {
+                        return a.user.lastName < b.user.lastName ? -1 : 1;
                     }
                 })
                 return dispatch(sortData(newUserData))
@@ -37,9 +37,9 @@ const SortingContainer = ({id}) => {
             case "userName": {
                 newUserData.sort((a, b) => {
                     if (a.user.username > b.user.username) {
-                        return a.user.username < b.user.username ? 1 : -1;
-                    } else {
                         return a.user.username > b.user.username ? 1 : -1;
+                    } else {
+                        return a.user.username > b.user.username ? -1 : 1;
                     }
                 })
                 return dispatch(sortData(newUserData))
@@ -51,9 +51,9 @@ const SortingContainer = ({id}) => {
             case "organization": {
                 newUserData.sort((a, b) => {
                     if (a.organization.companyTitle > b.organization.companyTitle) {
-                        return a.organization.companyTitle < b.organization.companyTitle ? 1 : -1;
-                    } else {
                         return a.organization.companyTitle > b.organization.companyTitle ? 1 : -1;
+                    } else {
+                        return a.organization.companyTitle > b.organization.companyTitle ? -1 : 1;
                     }
                 })
                 return dispatch(sortData(newUserData))
