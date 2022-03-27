@@ -4,49 +4,51 @@ import {useDispatch, useSelector} from "react-redux";
 import {sortData} from "../../redux/app-reducer";
 
 const SortingContainer = ({id}) => {
-    const userData = useSelector((state) => state.users);
+    const usersData = useSelector((state) => state.users);
+    const initialUser = useSelector((state) => state.initialUser);
     const [newUserData, setNewUserData] = useState([]);
+    const [sortType, setSortType] = useState(0)
     const dispatch = useDispatch();
 
+
     useEffect(() => {
-        setNewUserData(userData.concat())
+        setNewUserData(usersData.concat())
+        setSortType(1)
     }, [id])
 
-    const SortData = (id) => {
-        switch (id) {
-            case "name": {
-                newUserData.sort((a, b) => {
-                    if (a.user.name > b.user.name) {
-                        return a.user.name > b.user.name ? 1 : -1;
-                    } else {
-                        return b.user.name > a.user.name ? 1 : -1;
-                    }
-                })
-                return dispatch(sortData(newUserData))
-            }
-            case "lastName": {
-                newUserData.sort((a, b) => {
-                    if (a.user.lastName > b.user.lastName) {
-                        return a.user.lastName > b.user.lastName ? 1 : -1;
-                    } else {
-                        return a.user.lastName < b.user.lastName ? -1 : 1;
-                    }
-                })
-                return dispatch(sortData(newUserData))
-            }
-            case "userName": {
-                newUserData.sort((a, b) => {
-                    if (a.user.username > b.user.username) {
-                        return a.user.username > b.user.username ? 1 : -1;
-                    } else {
-                        return a.user.username > b.user.username ? -1 : 1;
-                    }
-                })
-                return dispatch(sortData(newUserData))
-            }
-            case "roles": {
 
-                return console.log('было нажато роль')
+    const changeSortType = () => {
+        if (sortType === 0) {
+            setSortType(1)
+        } else if (sortType === 1) {
+            setSortType(-1)
+        } else {
+            setSortType(0)
+        }
+    }
+
+    const Sort = (column) => {
+        newUserData.sort((a, b) => {
+            if (sortType === 1) {
+                return a.user[column] > b.user[column] ? 1 : -1;
+            }
+            if (sortType === -1) {
+                return a.user[column] > b.user[column] ? -1 : 1;
+            }
+        })
+        return dispatch(sortData(newUserData))
+    }
+
+    const SortData = (id) => {
+        changeSortType()
+
+        if (sortType === 0) {
+            return dispatch(sortData(initialUser))
+        }
+        switch (id) {
+            case "roles": {
+                //TODO: Сортировка по роли невозможна.
+                return console.log('Сортировка по роли')
             }
             case "organization": {
                 newUserData.sort((a, b) => {
@@ -59,7 +61,7 @@ const SortingContainer = ({id}) => {
                 return dispatch(sortData(newUserData))
             }
             default:
-                return id;
+                return Sort(id);
         }
     }
 

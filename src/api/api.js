@@ -60,7 +60,8 @@ export const api = {
                 return axios.post(`/auth/reg/admin`, {
                     name: user.name,
                     last_name: user.lastName,
-                    password: user.pass
+                    password: user.pass,
+                    company_title: 'arSoft'
                 }, {
                     headers: {
                         "Authorization": "Basic YWRtaW46YWRtaW4="
@@ -75,7 +76,8 @@ export const api = {
                 return axios.post(`/auth/reg`, {
                     name: user.name,
                     last_name: user.lastName,
-                    password: user.pass
+                    password: user.pass,
+                    company_title: 'arSoft'
                 }, {
                     headers: {
                         "Authorization": "Basic YWRtaW46YWRtaW4="

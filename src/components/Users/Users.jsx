@@ -10,7 +10,7 @@ import DeleteUserContainer from "../DeleteUser/DeleteUserContainer";
 import {editUser} from "../../redux/app-reducer";
 import {useDispatch} from "react-redux";
 
-const Users = ({users,count}) => {
+const Users = ({users, count}) => {
     const [deleteUser, setDeleteUser] = useState(false)
     const [idDeleteUser, setIdDeleteUser] = useState(null)
     const [idUserEdit, setIdUserEdit] = useState(null)
@@ -53,10 +53,10 @@ const Users = ({users,count}) => {
                     <div><b>Изображения</b></div>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    {users.map((i) => {
+                    {users.map((i, count) => {
                         return <div key={i.id} className={s.tableItemWrapper}>
 
-                            <div className={s.count}>{count}</div>
+                            <div className={s.count}>{count + 1}</div>
 
                             {i.id === idUserEdit ?
                                 <EditUserForm id={i.id} register={register} errors={errors} registerName='name'

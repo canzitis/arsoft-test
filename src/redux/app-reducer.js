@@ -8,6 +8,7 @@ const SET_WINDOW_LOADING = "SET_WINDOW_LOADING"
 
 let initialState = {
     users: null,
+    initialUser: null,
     initialize: false,
     windowLoading: false,
     roles: [
@@ -27,6 +28,7 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 users: [...action.users],
+                initialUser: [...action.users],
                 initialize: true
             }
         case SET_INITIALIZE:
@@ -35,6 +37,7 @@ const appReducer = (state = initialState, action) => {
                 initialize: action.initialize
             }
         case SORT_DATA:
+            debugger
             return {
                 ...state,
                 users: [...action.data]
@@ -74,6 +77,7 @@ const setInitialize = (initialize) => {
 }
 
 export const sortData = (data) => {
+    debugger
     return {
         type: SORT_DATA,
         data
@@ -99,6 +103,7 @@ export const getUsers = () => {
         dispatch(setInitialize(false))
         const data = await api.getUsers()
         if (data.status === 200) {
+            console.log(data)
             dispatch(setUsers(data.data))
         }
     }
