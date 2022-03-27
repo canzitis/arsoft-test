@@ -1,9 +1,9 @@
 import EditUser from "./EditUser";
 
-const EditUserContainer = ({id,setEditUser}) => {
+const EditUserContainer = ({id,setIdUserEdit}) => {
 
     return <>
-        <EditUser id={id} setEditUser={setEditUser}/>
+        <EditUser id={id} setIdUserEdit={setIdUserEdit}/>
     </>
 }
 export default EditUserContainer;

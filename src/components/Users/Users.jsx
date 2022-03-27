@@ -7,10 +7,12 @@ import EditUserContainer from "../EditUser/EditUserContainer";
 import {useForm} from "react-hook-form";
 import EditUserForm from "../EditUser/EditUserForm/EditUserForm";
 import DeleteUserContainer from "../DeleteUser/DeleteUserContainer";
+import {editUsers} from "../../redux/app-reducer";
 
-const Users = ({users, setEditUser, editUser}) => {
+const Users = ({users, setEditUser}) => {
     const [deleteUser, setDeleteUser] = useState(false)
     const [idDeleteUser, setIdDeleteUser] = useState(null)
+    const [idUserEdit, setIdUserEdit] = useState(null)
 
     const setDeleteUserFC = (id) => {
         setDeleteUser(true)
@@ -23,9 +25,10 @@ const Users = ({users, setEditUser, editUser}) => {
         formState: {errors},
     } = useForm();
 
-    const onSubmit = (data) => {
-
-        setEditUser(false)
+    const onSubmit = (data, idUserEdit) => {
+        console.log(data)
+        //editUsers(data,idUserEdit)
+        setIdUserEdit(null)
     };
 
     return (<div className={s.container}>
@@ -52,30 +55,28 @@ const Users = ({users, setEditUser, editUser}) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     {users.map((i) => {
                         return <div key={i.id} className={s.tableItemWrapper}>
-                            {!editUser ? <div>
-                                {i.user.name}
-                            </div> : <EditUserForm id={i.id} register={register} errors={errors} registerName='name'
-                                                   placeholder={i.user.name}/>}
 
-                            {!editUser ? <div>
-                                {i.user.lastName}
-                            </div> : <EditUserForm id={i.id} register={register} errors={errors} registerName='lastName'
-                                                   placeholder={i.user.lastName}/>}
+                            {i.id === idUserEdit ?
+                                <EditUserForm id={i.id} register={register} errors={errors} registerName='name'
+                                              placeholder={i.user.name}/> : <div>{i.user.name}</div>}
 
-                            {!editUser ? <div>
-                                {i.user.username ? i.user.username : "-"}
-                            </div> : <EditUserForm id={i.id} register={register} errors={errors} registerName='username'
-                                                   placeholder={i.user.username ? i.user.username : "-"}/>}
+                            {i.id === idUserEdit ?
+                                <EditUserForm id={i.id} register={register} errors={errors} registerName='lastName'
+                                              placeholder={i.user.lastName}/> : <div>{i.user.lastName}</div>}
 
-                            <div>
-                                {i.roles.map((roles) => {
+                            {i.id === idUserEdit ?
+                                <EditUserForm id={i.id} register={register} errors={errors} registerName='username'
+                                              placeholder={i.user.username ? i.user.username : "-"}/> :
+                                <div>{i.user.username ? i.user.username : "-"}</div>}
+
+                            {i.id === idUserEdit ?
+                                <EditUserForm id={i.id} register={register} errors={errors} registerName='roles'
+                                              select={true}/>
+                                : <div>{i.roles.map((roles) => {
                                     return <div key={roles.name}>{roles.name}</div>
-                                })}
-                            </div>
+                                })}</div>}
 
-                            <div>
-                                {i.organization.companyTitle}
-                            </div>
+                            <div>{i.organization.companyTitle}</div>
 
                             <div className={s.buttonDownloadImg}>
                                 <button onClick={(() => {
@@ -83,16 +84,16 @@ const Users = ({users, setEditUser, editUser}) => {
                                 })}/>
                             </div>
 
-                            {!editUser ? <div className={s.buttonWrapperForm}>
-                                <EditUserContainer id={i.id} setEditUser={setEditUser}/>
-                                <button onClick={(() => {
-                                    setDeleteUserFC(i.id)
-                                })}/>
-                            </div> : <input
+                            {i.id === idUserEdit ? <input
                                 className={s.updateUserButton}
                                 type='submit'
                                 value='Обновить'
-                            />}
+                            /> : <div className={s.buttonWrapperForm}>
+                                <EditUserContainer id={i.id} setIdUserEdit={setIdUserEdit}/>
+                                <button onClick={(() => {
+                                    setDeleteUserFC(i.id)
+                                })}/>
+                            </div>}
                         </div>
                     })}
                 </form>
@@ -106,6 +107,5 @@ const Users = ({users, setEditUser, editUser}) => {
 
         </div>
     </div>)
-        ;
-};
+}
 export default Users;

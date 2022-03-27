@@ -66,11 +66,10 @@ export const getUsers = () => {
     }
 }
 
-export const editUsers = () => {
+export const editUsers = (data,idUserEdit) => {
     return async (dispatch) => {
-        const data = await api.getUsers()
+        const data = await api.getUsers(data,idUserEdit)
         if (data.status === 200) {
-
         }
     }
 }

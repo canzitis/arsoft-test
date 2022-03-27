@@ -1,9 +1,9 @@
 import React from "react";
 
-const EditUser = ({id, setEditUser}) => {
+const EditUser = ({id,setIdUserEdit}) => {
     return <>
         <button onClick={(() => {
-            setEditUser(true)
+            setIdUserEdit(id)
         })}/>
     </>
 }
