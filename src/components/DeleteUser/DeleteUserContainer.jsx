@@ -1,8 +1,18 @@
 import DeleteUser from "./DeleteUser";
+import {useDispatch} from "react-redux";
+import {deleteUser} from "../../redux/app-reducer";
 
-const DeleteUserContainer = ({setDeleteUser,deleteUser}) => {
+const DeleteUserContainer = ({setModeDeleteUser, modeDeleteUser, mailDeleteUser}) => {
+    const dispatch = useDispatch();
+
+    const DeleteUserFc = (email) => {
+        console.log(email)
+        //dispatch(deleteUser(email))
+    }
+
     return <>
-        <DeleteUser setDeleteUser={setDeleteUser} deleteUser={deleteUser}/>
+        <DeleteUser setModeDeleteUser={setModeDeleteUser} modeDeleteUser={modeDeleteUser}
+                    mailDeleteUser={mailDeleteUser} DeleteUserFc={DeleteUserFc}/>
     </>
 }
 export default DeleteUserContainer

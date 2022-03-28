@@ -47,7 +47,6 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 organizations: [...action.organizations],
                 windowLoading: true
-
             }
         case SET_WINDOW_LOADING:
             return {
@@ -103,7 +102,6 @@ export const getUsers = () => {
         dispatch(setInitialize(false))
         const data = await api.getUsers()
         if (data.status === 200) {
-            console.log(data)
             dispatch(setUsers(data.data))
         }
     }
@@ -117,7 +115,6 @@ export const editUser = (dataUser, idUserEdit) => {
             const data = await api.getUsers()
             if (data.status === 200) {
                 dispatch(setUsers(data.data))
-                dispatch(setInitialize(true))
             }
         }
     }
@@ -129,7 +126,8 @@ export const getOrganization = () => {
         dispatch(setWindowLoading(false))
         const data = await api.getOrganization()
         if (data.status === 200) {
-            dispatch(setOrganizations(data.data))
+            dispatch(setOrganizations(data.data.data))
+            dispatch(setWindowLoading(true))
         }
     }
 }
@@ -138,7 +136,24 @@ export const addedUser = (user) => {
     return async (dispatch) => {
         const data = await api.addedUser(user)
         if (data.status === 200) {
-            console.log(data)
+            dispatch(setInitialize(false))
+            const data = await api.getUsers()
+            if (data.status === 200) {
+                dispatch(setUsers(data.data))
+            }
+        }
+    }
+}
+
+export const deleteUser = (email) => {
+    debugger
+    return async () => {
+        const data = await api.deleteUser(email)
+        if (data.status === 200) {
+            const data = await api.getUsers()
+            if (data.status === 200) {
+                console.log(data)
+            }
         }
     }
 }

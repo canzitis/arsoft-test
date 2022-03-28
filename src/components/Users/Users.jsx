@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import s from './Users.module.scss'
 import Pagination from "../Pagination/Pagination";
 import AddedUser from "../AddedUser/AddedUser";
@@ -11,8 +11,8 @@ import {editUser} from "../../redux/app-reducer";
 import {useDispatch} from "react-redux";
 
 const Users = ({users, count}) => {
-    const [deleteUser, setDeleteUser] = useState(false)
-    const [idDeleteUser, setIdDeleteUser] = useState(null)
+    const [modeDeleteUser, setModeDeleteUser] = useState(false)
+    const [mailDeleteUser, setMailDeleteUser] = useState(null)
     const [idUserEdit, setIdUserEdit] = useState(null)
     const [modeAddedUser, setModeAddedUser] = useState(false)
 
@@ -25,8 +25,13 @@ const Users = ({users, count}) => {
         formState: {errors},
     } = useForm();
 
+    const deleteUserFC = (mail) => {
+        setMailDeleteUser(mail)
+        setModeDeleteUser(true)
+    }
+
+
     const onSubmit = (data) => {
-        console.log(1)
         dispatch(editUser(data, idUserEdit))
         setIdUserEdit(null)
     };
@@ -93,14 +98,17 @@ const Users = ({users, count}) => {
                             /> : <div className={s.buttonWrapperForm}>
                                 <EditUserContainer id={i.id} setIdUserEdit={setIdUserEdit}/>
                                 <button
-                                    type="delete" onClick={() => {
-                                    console.log(2)
-                                }}/>
+                                    onClick={() => {
+                                        /*deleteUserFC(i.user.mail)*/
+                                        console.log("delete")
+                                    }}/>
                             </div>}
                         </div>
                     })}
                 </form>
-                {deleteUser && <DeleteUserContainer setDeleteUser={setDeleteUser} deleteUser={deleteUser}/>}
+                {modeDeleteUser &&
+                    <DeleteUserContainer setModeDeleteUser={setModeDeleteUser} modeDeleteUser={modeDeleteUser}
+                                         mailDeleteUser={mailDeleteUser}/>}
                 {modeAddedUser && <AddedUser setModeAddedUser={setModeAddedUser} modeAddedUser={modeAddedUser}/>}
             </div>
 

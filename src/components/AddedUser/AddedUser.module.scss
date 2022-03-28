@@ -7,7 +7,6 @@
     background: rgba(0, 0, 0, 0.46);
     transition: .5s;
 
-
     & > :last-child {
         position: relative;
         margin-top: 150px;
@@ -17,13 +16,11 @@
         padding: 20px 40px 20px 40px;
         background: #dedede;
         border: solid 1px black;
-        max-height: 500px;
-
 
         input {
-            height: 20px;
+            height: 30px;
 
-            &:focus{
+            &:focus {
                 outline: unset;
             }
         }
@@ -34,14 +31,17 @@
 
 .addedUserFormWrapper {
     div {
-        display: flex;
-        flex-direction: column;
         text-align: left;
 
         span {
+            display: block;
             margin-top: 10px;
             font-weight: 500;
-            padding-bottom: 3px;
+            padding-bottom: 10px;
+        }
+
+        input {
+            width: 100%;
         }
     }
 
@@ -58,14 +58,10 @@
         background: blue;
         color: white;
         transition: transform .2s;
+
         &:hover {
             cursor: pointer;
             transform: scale(1.05);
         }
     }
-}
-
-
-.optionRole{
-    height: 30px;
 }

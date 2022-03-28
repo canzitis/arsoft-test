@@ -8,13 +8,13 @@ import Preloader from "../Preloader/Preloader";
 const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
     const dispatch = useDispatch();
     const roles = useSelector((state) => state.roles);
-    const organization = useSelector((state) => state.organization);
+    const organizations = useSelector((state) => state.organizations);
     const windowLoading = useSelector((state) => state.windowLoading);
 
-    useEffect(() => {
-        getOrganization()
-    }, [modeAddedUser])
 
+    useEffect(() => {
+        dispatch(getOrganization())
+    }, [modeAddedUser])
     const {
         register,
         handleSubmit,
@@ -23,10 +23,12 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
 
     const onSubmit = (data) => {
         dispatch(addedUser(data))
+        setModeAddedUser(false)
     }
 
+    console.log(organizations)
     return <div className={s.addedUserContainer}>
-        <div>
+        {!windowLoading ? <Preloader/> : <div>
             <h4>Создание пользователя</h4>
             <form onSubmit={handleSubmit(onSubmit)} className={s.addedUserForm}>
                 <div className={s.addedUserFormWrapper}>
@@ -45,7 +47,7 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     <div>
                         <span>Фамилия:</span>
                         <input
-                            style={{border: errors.name && "solid 1px #E26F6F"}}
+                            style={{border: errors.lastName && "solid 1px #E26F6F"}}
                             placeholder='Введите фамилию'
                             type="text"
                             {...register("lastName", {required: true})}
@@ -57,10 +59,10 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     <div>
                         <span>Username:</span>
                         <input
-                            style={{border: errors.name && "solid 1px #E26F6F"}}
-                            placeholder='Введите имя'
-                            type="text"
-                            {...register("UserName", {required: true})}
+                            style={{border: errors.email && "solid 1px #E26F6F"}}
+                            placeholder='Введите почту'
+                            type="email"
+                            {...register("email", {required: true})}
                             minLength={2}
                             maxLength={30}
                         />
@@ -69,7 +71,7 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     <div>
                         <span>Пароль:</span>
                         <input
-                            style={{border: errors.name && "solid 1px #E26F6F"}}
+                            style={{border: errors.pass && "solid 1px #E26F6F"}}
                             placeholder='Введите пароль'
                             type="password"
                             {...register("pass", {required: true})}
@@ -79,12 +81,28 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     </div>
 
                     <div>
+                        <span>Дата:</span>
+                        <input
+                            style={{border: errors.date && "solid 1px #E26F6F"}}
+                            placeholder='Дата'
+                            type="datetime-local"
+                            {...register("date", {required: true})}
+                            minLength={2}
+                            maxLength={30}
+                        />
+                    </div>
+
+                    <div>
                         <span>Роль:</span>
-                        <select className={s.optionRole}
-                                placeholder="Выберите роль"
+                        <select className={s.option}
+                                style={{
+                                    border: errors.roles && "solid 1px #E26F6F",
+                                    color: errors.roles && "red"
+                                }}
                                 {...register('roles', {
                                     required: true,
                                 })}>
+                            <option value=''>Выберите роль</option>
                             {roles.map((item) => {
                                 return <option key={item.name}>{item.name}</option>
                             })}
@@ -92,18 +110,22 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     </div>
 
 
-                    {/* <div>
+                    <div>
                         <span>Организация:</span>
-                        <select className={s.optionRole}
-                                placeholder="Выберите организацию"
-                                {...register('roles', {
+                        <select className={s.option}
+                                style={{
+                                    border: errors.companyTitle && "solid 1px #E26F6F",
+                                    color: errors.companyTitle && "red"
+                                }}
+                                {...register('companyTitle', {
                                     required: true,
                                 })}>
-                            {organization.map((item) => {
-                                return <option key={item.companyTitle}>{item.companyTitle}</option>
+                            <option value=''>Выберите организацию</option>
+                            {organizations.map((item) => {
+                                return <option value={item.companyTitle} key={item.companyTitle}>{item.companyTitle}</option>
                             })}
                         </select>
-                    </div>*/}
+                    </div>
                 </div>
 
 
@@ -119,7 +141,8 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                     </button>
                 </div>
             </form>
-        </div>
+        </div>}
+
     </div>
 }
 export default AddedUser;
