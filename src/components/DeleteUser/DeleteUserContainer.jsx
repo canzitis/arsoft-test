@@ -6,8 +6,7 @@ const DeleteUserContainer = ({setModeDeleteUser, modeDeleteUser, mailDeleteUser}
     const dispatch = useDispatch();
 
     const DeleteUserFc = (email) => {
-        console.log(email)
-        //dispatch(deleteUser(email))
+        dispatch(deleteUser(email))
     }
 
     return <>

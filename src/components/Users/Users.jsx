@@ -97,11 +97,7 @@ const Users = ({users, count}) => {
                                 value='Обновить'
                             /> : <div className={s.buttonWrapperForm}>
                                 <EditUserContainer id={i.id} setIdUserEdit={setIdUserEdit}/>
-                                <button
-                                    onClick={() => {
-                                        /*deleteUserFC(i.user.mail)*/
-                                        console.log("delete")
-                                    }}/>
+                                <button type="button" onClick={() => deleteUserFC(i.email)}/>
                             </div>}
                         </div>
                     })}

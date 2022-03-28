@@ -1,18 +1,17 @@
 import s from './DeleteUser.module.scss'
 
 const DeleteUser = ({setModeDeleteUser, DeleteUserFc, mailDeleteUser}) => {
-    debugger
     return <div className={s.deleteUserContainer}>
         <div>
             <h4>Вы действительно хотите удалить пользователя?</h4>
             <div className={s.deleteUserButtonWrapper}>
-                <button onClick={() => {
+                <button onClick={() =>
                     setModeDeleteUser(false)
-                }}>Нет
+                }>Нет
                 </button>
-                <button onClick={() => {
+                <button onClick={() =>
                     DeleteUserFc(mailDeleteUser)
-                }}>Да
+                }>Да
                 </button>
             </div>
         </div>

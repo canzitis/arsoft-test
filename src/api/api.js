@@ -18,6 +18,7 @@ export const api = {
     },
 
     editUser(dataUser, idUserEdit) {
+        debugger
         return axios.put(`/account/edit/`, {
             id: idUserEdit,
             name: dataUser.name,

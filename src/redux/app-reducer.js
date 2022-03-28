@@ -5,12 +5,14 @@ const SET_INITIALIZE = "SET_INITIALIZE"
 const SORT_DATA = "SORT_DATA"
 const SET_ORGANIZATIONS = "SET_ORGANIZATIONS"
 const SET_WINDOW_LOADING = "SET_WINDOW_LOADING"
+const ERROR_MESSAGE = "ERROR_MESSAGE"
 
 let initialState = {
     users: null,
     initialUser: null,
     initialize: false,
     windowLoading: false,
+    errorMessage: false,
     roles: [
         {
             name: "Суперпользователь"
@@ -53,6 +55,12 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 windowLoading: action.windowLoading
             }
+        case ERROR_MESSAGE:
+            debugger
+            return {
+                ...state,
+                errorMessage: action.errorMessage
+            }
         default:
             return state;
     }
@@ -76,7 +84,6 @@ const setInitialize = (initialize) => {
 }
 
 export const sortData = (data) => {
-    debugger
     return {
         type: SORT_DATA,
         data
@@ -97,10 +104,23 @@ const setWindowLoading = (windowLoading) => {
     }
 }
 
+const errorMessage = (errorMessage) => {
+    return {
+        type: ERROR_MESSAGE,
+        errorMessage
+    }
+}
+
 export const getUsers = () => {
     return async (dispatch) => {
         dispatch(setInitialize(false))
+        dispatch(errorMessage(false))
         const data = await api.getUsers()
+        if (!data) {
+            setTimeout(()=>{
+                return dispatch(errorMessage(true))
+            },2000)
+        }
         if (data.status === 200) {
             dispatch(setUsers(data.data))
         }
@@ -146,13 +166,13 @@ export const addedUser = (user) => {
 }
 
 export const deleteUser = (email) => {
-    debugger
-    return async () => {
+    return async (dispatch) => {
         const data = await api.deleteUser(email)
         if (data.status === 200) {
+            dispatch(setInitialize(false))
             const data = await api.getUsers()
             if (data.status === 200) {
-                console.log(data)
+                dispatch(setUsers(data.data))
             }
         }
     }
