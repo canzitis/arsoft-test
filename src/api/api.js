@@ -1,12 +1,13 @@
 import axios from "axios";
-import {deleteUser} from "../redux/app-reducer";
 
 export const api = {
 
-    getUsers(page = 1) {
+    getUsers(page = 0) {
+        debugger
         return axios.get(`/account/api?page=${page}`, {
-            headers: {
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+            auth: {
+                username: 'superuser',
+                password: 'superuser'
             }
         })
             .then(response => {
@@ -18,20 +19,21 @@ export const api = {
     },
 
     editUser(dataUser, idUserEdit) {
-        debugger
         return axios.put(`/account/edit/`, {
             id: idUserEdit,
             name: dataUser.name,
             last_name: dataUser.lastName,
             user_name: dataUser.username,
+            email: dataUser.username,
             roles: [
                 {
                     name: dataUser.roles
                 }
             ]
         }, {
-            headers: {
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+            auth: {
+                username: 'superuser',
+                password: 'superuser'
             }
         })
             .then(response => {
@@ -59,8 +61,9 @@ export const api = {
 
     deleteUser(email) {
         return axios.delete(`/account/${email}`, {
-            headers: {
-                "Authorization": "Basic YWRtaW46YWRtaW4="
+            auth: {
+                username: "superuser",
+                password: "superuser"
             }
         })
             .then(response => {
@@ -72,6 +75,7 @@ export const api = {
     },
 
     addedUser(user) {
+        debugger
         switch (user.roles) {
             case "Администратор":
                 console.log(user)
@@ -96,11 +100,14 @@ export const api = {
                 return axios.post(`/auth/reg`, {
                     name: user.name,
                     last_name: user.lastName,
-                    password: user.pass,
-                    company_title: 'arSoft'
+                    birth_date: user.date,
+                    company_title: user.companyTitle,
+                    email: user.email,
+                    password: user.pass
                 }, {
-                    headers: {
-                        "Authorization": "Basic YWRtaW46YWRtaW4="
+                    auth: {
+                        username: "superuser",
+                        password: "superuser"
                     }
                 }).then(response => {
                     return response

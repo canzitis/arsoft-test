@@ -26,7 +26,6 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
         setModeAddedUser(false)
     }
 
-    console.log(organizations)
     return <div className={s.addedUserContainer}>
         {!windowLoading ? <Preloader/> : <div>
             <h4>Создание пользователя</h4>

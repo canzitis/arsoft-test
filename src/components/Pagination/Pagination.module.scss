@@ -11,29 +11,61 @@
     }
 
     button {
-        height: 100%;
-        background: unset;
-        border: unset;
-        img{
+        img {
             width: 15px;
             height: 10px;
             transition: transform .2s;
 
             &:hover {
                 cursor: pointer;
-                transform: scale(1.1);
+                transform: scale(1.05);
             }
         }
     }
 }
 
-.buttonSortWrapper{
+.arrowLeft {
+    height: 100%;
+    background: unset;
+    border: unset;
+}
+
+.arrowRight {
+    height: 100%;
+    background: unset;
+    border: unset;
+}
+
+.buttonSortWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    & > :nth-child(2) {
+        button {
+            border-left: 1px solid black;
+        }
+    }
 }
-.itemPage{
-button{
-    border: solid 1px black;
+
+.itemPage {
+    button {
+        padding: 10px;
+        background: white;
+        border-top: unset;
+        border-bottom: unset;
+        border-left: unset;
+        font-weight: bold;
+        transition: transform .2s;
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
 }
+
+.itemButtonPageActive {
+    background-color: blue !important;
+    color: white;
 }

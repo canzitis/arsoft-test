@@ -9,8 +9,9 @@ import EditUserForm from "../EditUser/EditUserForm/EditUserForm";
 import DeleteUserContainer from "../DeleteUser/DeleteUserContainer";
 import {editUser} from "../../redux/app-reducer";
 import {useDispatch} from "react-redux";
+import Roles from "../roles/Roles";
 
-const Users = ({users, count}) => {
+const Users = ({users, buttonArray, setCurrentPageFC}) => {
     const [modeDeleteUser, setModeDeleteUser] = useState(false)
     const [mailDeleteUser, setMailDeleteUser] = useState(null)
     const [idUserEdit, setIdUserEdit] = useState(null)
@@ -73,14 +74,14 @@ const Users = ({users, count}) => {
 
                             {i.id === idUserEdit ?
                                 <EditUserForm id={i.id} register={register} errors={errors} registerName='username'
-                                              placeholder={i.user.username ? i.user.username : "-"}/> :
-                                <div>{i.user.username ? i.user.username : "-"}</div>}
+                                              placeholder={i.email ? i.email : "-"}/> :
+                                <div>{i.email ? i.email : "-"}</div>}
 
                             {i.id === idUserEdit ?
                                 <EditUserForm id={i.id} register={register} errors={errors} registerName='roles'
                                               select={true}/>
                                 : <div>{i.roles.map((roles) => {
-                                    return <div key={roles.name}>{roles.name}</div>
+                                    return <Roles roles={roles} key={roles.name}/>
                                 })}</div>}
 
                             <div>{i.organization.companyTitle}</div>
@@ -109,13 +110,12 @@ const Users = ({users, count}) => {
             </div>
 
             <div className={s.footerButtonWrapper}>
-                <Pagination/>
-                <button onClick={() => {
+                <Pagination buttonArray={buttonArray} setCurrentPageFC={setCurrentPageFC}/>
+                <button className={s.addedUser} onClick={() => {
                     setModeAddedUser(true)
                 }}>Создать<br/> пользователя
                 </button>
             </div>
-
         </div>
     </div>)
 }

@@ -7,7 +7,6 @@ import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 function App() {
     const errorMessage = useSelector((state) => state.errorMessage);
 
-    console.log(errorMessage)
     if (errorMessage) {
         return <ErrorMessage/>
     }

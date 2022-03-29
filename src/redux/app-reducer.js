@@ -6,6 +6,7 @@ const SORT_DATA = "SORT_DATA"
 const SET_ORGANIZATIONS = "SET_ORGANIZATIONS"
 const SET_WINDOW_LOADING = "SET_WINDOW_LOADING"
 const ERROR_MESSAGE = "ERROR_MESSAGE"
+const CURRENT_PAGE = "CURRENT_PAGE"
 
 let initialState = {
     users: null,
@@ -13,6 +14,7 @@ let initialState = {
     initialize: false,
     windowLoading: false,
     errorMessage: false,
+    currentPage: 0,
     roles: [
         {
             name: "Суперпользователь"
@@ -39,7 +41,6 @@ const appReducer = (state = initialState, action) => {
                 initialize: action.initialize
             }
         case SORT_DATA:
-            debugger
             return {
                 ...state,
                 users: [...action.data]
@@ -56,10 +57,16 @@ const appReducer = (state = initialState, action) => {
                 windowLoading: action.windowLoading
             }
         case ERROR_MESSAGE:
-            debugger
             return {
                 ...state,
                 errorMessage: action.errorMessage
+            }
+
+        case CURRENT_PAGE:
+            debugger
+            return {
+                ...state,
+                currentPage: action.page
             }
         default:
             return state;
@@ -111,15 +118,24 @@ const errorMessage = (errorMessage) => {
     }
 }
 
-export const getUsers = () => {
+export const setCurrentPage = (page) => {
+    debugger
+    return {
+        type: CURRENT_PAGE,
+        page
+    }
+}
+
+export const getUsers = (page) => {
+    debugger
     return async (dispatch) => {
         dispatch(setInitialize(false))
         dispatch(errorMessage(false))
-        const data = await api.getUsers()
+        const data = await api.getUsers(page)
         if (!data) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 return dispatch(errorMessage(true))
-            },2000)
+            }, 2000)
         }
         if (data.status === 200) {
             dispatch(setUsers(data.data))

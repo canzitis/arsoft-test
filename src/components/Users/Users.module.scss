@@ -42,7 +42,8 @@
         padding-left: 5px;
     }
 }
-.count{
+
+.count {
     position: absolute;
     left: 0;
     margin-right: 10px;
@@ -104,17 +105,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    button {
-        padding: 10px;
-        background: blue;
-        color: white;
-        transition: transform .5s;
-
-        &:hover {
-            cursor: pointer;
-            transform: scale(1.05);
-        }
-    }
 }
 
+.addedUser{
+    background: blue;
+    padding: 10px;
+    transition: transform .5s;
+    color: white;
+    font-weight: bold;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.05);
+    }
+}
