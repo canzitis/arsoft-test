@@ -7,9 +7,16 @@ import Preloader from "../Preloader/Preloader";
 
 const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
     const dispatch = useDispatch();
-    const roles = useSelector((state) => state.roles);
     const organizations = useSelector((state) => state.organizations);
     const windowLoading = useSelector((state) => state.windowLoading);
+    const roles = [
+        {
+            name: "Суперпользователь"
+        }, {
+            name: "Администратор"
+        }, {
+            name: "Пользователь"
+        }]
 
 
     useEffect(() => {
@@ -121,7 +128,8 @@ const AddedUser = ({setModeAddedUser, modeAddedUser}) => {
                                 })}>
                             <option value=''>Выберите организацию</option>
                             {organizations.map((item) => {
-                                return <option value={item.companyTitle} key={item.companyTitle}>{item.companyTitle}</option>
+                                return <option value={item.companyTitle}
+                                               key={item.companyTitle}>{item.companyTitle}</option>
                             })}
                         </select>
                     </div>

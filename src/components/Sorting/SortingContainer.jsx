@@ -48,7 +48,7 @@ const SortingContainer = ({id}) => {
         switch (id) {
             case "roles": {
                 //TODO: Сортировка по роли невозможна.
-                return console.log('Сортировка по роли')
+                return console.log('Сортировка по роли невозможна')
             }
             case "organization": {
                 newUserData.sort((a, b) => {

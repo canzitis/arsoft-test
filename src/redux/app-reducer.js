@@ -7,6 +7,7 @@ const SET_ORGANIZATIONS = "SET_ORGANIZATIONS"
 const SET_WINDOW_LOADING = "SET_WINDOW_LOADING"
 const ERROR_MESSAGE = "ERROR_MESSAGE"
 const CURRENT_PAGE = "CURRENT_PAGE"
+const SET_TEXT_FILE_DOWNLOAD = "SET_TEXT_FILE_DOWNLOAD"
 
 let initialState = {
     users: null,
@@ -15,14 +16,7 @@ let initialState = {
     windowLoading: false,
     errorMessage: false,
     currentPage: 0,
-    roles: [
-        {
-            name: "Суперпользователь"
-        }, {
-            name: "Администратор"
-        }, {
-            name: "Пользователь"
-        }],
+    fileDownloadText: null,
     organizations: null
 }
 
@@ -63,10 +57,14 @@ const appReducer = (state = initialState, action) => {
             }
 
         case CURRENT_PAGE:
-            debugger
             return {
                 ...state,
                 currentPage: action.page
+            }
+        case SET_TEXT_FILE_DOWNLOAD:
+            return {
+                ...state,
+                fileDownloadText: action.fileDownloadText
             }
         default:
             return state;
@@ -118,8 +116,14 @@ const errorMessage = (errorMessage) => {
     }
 }
 
+const setTextFileDownload = (text) => {
+    return {
+        type: SET_TEXT_FILE_DOWNLOAD,
+        text
+    }
+}
+
 export const setCurrentPage = (page) => {
-    debugger
     return {
         type: CURRENT_PAGE,
         page
@@ -127,7 +131,6 @@ export const setCurrentPage = (page) => {
 }
 
 export const getUsers = (page) => {
-    debugger
     return async (dispatch) => {
         dispatch(setInitialize(false))
         dispatch(errorMessage(false))
@@ -143,10 +146,10 @@ export const getUsers = (page) => {
     }
 }
 
-export const editUser = (dataUser, idUserEdit) => {
+export const editUser = (dataUser) => {
     return async (dispatch) => {
         dispatch(setInitialize(false))
-        const data = await api.editUser(dataUser, idUserEdit)
+        const data = await api.editUser(dataUser)
         if (data.status === 200) {
             const data = await api.getUsers()
             if (data.status === 200) {
@@ -190,6 +193,15 @@ export const deleteUser = (email) => {
             if (data.status === 200) {
                 dispatch(setUsers(data.data))
             }
+        }
+    }
+}
+
+export const fileDownload = (id) => {
+    return async () => {
+        const data = await api.getFileDownload(id)
+        if (data.status === 200) {
+            alert(data.data.description)
         }
     }
 }

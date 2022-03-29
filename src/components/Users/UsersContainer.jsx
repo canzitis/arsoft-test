@@ -7,6 +7,7 @@ import Preloader from "../Preloader/Preloader";
 const UsersContainer = () => {
     const dispatch = useDispatch();
     const users = useSelector((state) => state.users);
+    const fileDownloadText = useSelector((state) => state.fileDownload);
     const currentPage = useSelector((state) => state.currentPage);
     const [count, setCount] = useState(1)
     const initialize = useSelector((state) => state.initialize);
@@ -16,6 +17,7 @@ const UsersContainer = () => {
     const setCurrentPageFC = (page) => {
         dispatch(setCurrentPage(page))
     }
+
 
     useEffect(() => {
             dispatch(getUsers(currentPage))
@@ -29,7 +31,8 @@ const UsersContainer = () => {
 
     return (
         <>
-            <Users users={users} count={count} buttonArray={buttonArray} setCurrentPageFC={setCurrentPageFC}/>
+            <Users users={users} count={count} buttonArray={buttonArray}
+                   setCurrentPageFC={setCurrentPageFC} fileDownloadText={fileDownloadText}/>
         </>
     );
 };

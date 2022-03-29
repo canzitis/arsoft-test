@@ -7,11 +7,11 @@ import EditUserContainer from "../EditUser/EditUserContainer";
 import {useForm} from "react-hook-form";
 import EditUserForm from "../EditUser/EditUserForm/EditUserForm";
 import DeleteUserContainer from "../DeleteUser/DeleteUserContainer";
-import {editUser} from "../../redux/app-reducer";
+import {editUser, fileDownload} from "../../redux/app-reducer";
 import {useDispatch} from "react-redux";
 import Roles from "../roles/Roles";
 
-const Users = ({users, buttonArray, setCurrentPageFC}) => {
+const Users = ({users, buttonArray, setCurrentPageFC, fileDownloadText}) => {
     const [modeDeleteUser, setModeDeleteUser] = useState(false)
     const [mailDeleteUser, setMailDeleteUser] = useState(null)
     const [idUserEdit, setIdUserEdit] = useState(null)
@@ -33,7 +33,7 @@ const Users = ({users, buttonArray, setCurrentPageFC}) => {
 
 
     const onSubmit = (data) => {
-        dispatch(editUser(data, idUserEdit))
+        dispatch(editUser(data))
         setIdUserEdit(null)
     };
 
@@ -85,10 +85,9 @@ const Users = ({users, buttonArray, setCurrentPageFC}) => {
                                 })}</div>}
 
                             <div>{i.organization.companyTitle}</div>
-
                             <div className={s.buttonDownloadImg}>
-                                <button onClick={(() => {
-                                    console.log(`ЗАГРУЗИТЬ ${i.id}`)
+                                <button type="button" onClick={(() => {
+                                    dispatch(fileDownload(i.id))
                                 })}/>
                             </div>
 

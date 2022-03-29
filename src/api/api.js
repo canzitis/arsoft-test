@@ -3,7 +3,6 @@ import axios from "axios";
 export const api = {
 
     getUsers(page = 0) {
-        debugger
         return axios.get(`/account/api?page=${page}`, {
             auth: {
                 username: 'superuser',
@@ -18,9 +17,8 @@ export const api = {
             })
     },
 
-    editUser(dataUser, idUserEdit) {
+    editUser(dataUser) {
         return axios.put(`/account/edit/`, {
-            id: idUserEdit,
             name: dataUser.name,
             last_name: dataUser.lastName,
             user_name: dataUser.username,
@@ -75,10 +73,8 @@ export const api = {
     },
 
     addedUser(user) {
-        debugger
         switch (user.roles) {
             case "Администратор":
-                console.log(user)
                 return axios.post(`/auth/reg/admin`, {
                     name: user.name,
                     last_name: user.lastName,
@@ -116,5 +112,20 @@ export const api = {
                         return console.log(`Пришла ошибка ${error}`);
                     })
         }
-    }
+    },
+    getFileDownload(id) {
+        return axios.get(`/screenshot/arch/${id}`, {
+            auth: {
+                username: "superuser",
+                password: "superuser"
+            }
+        })
+            .then(response => {
+                return response
+            })
+            .catch(error => {
+                return console.log(`Пришла ошибка ${error}`);
+            })
+    },
+
 }
